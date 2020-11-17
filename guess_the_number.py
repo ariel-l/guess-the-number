@@ -23,34 +23,33 @@ def hint(actual_number, your_number):
     else:
         return f"The number is above {your_number}."
 
+def continue_game(prompt):
+    if prompt == "n":
+        lifes, l = 0, 0
+        return lifes, l
+    else:
+        choose_difficulty = input("Wich difficulty do you want to play? (easy, medium, hard): ")
+        ln = difficulty(choose_difficulty)
+        return ln
+
 def game(mode):
-    lifes, number_to_guess = difficulty(mode)[0], difficulty(mode)[1]
-    introduction = "-- Guess the number --"
-    introduction += "\nPlease, enter your number: "
-    play_again = "Do you want to play again? 'y/n' "
-    choose_difficulty = "Wich difficulty do you want to play? (easy, medium, hard): "
+    results = difficulty(mode)
+    lifes, number_to_guess = results[0], results[1]
     while lifes != 0:
-        your_number = int(input(introduction))
+        your_number = int(input("-- Guess the number -- \nPlease, enter your number: "))
         if number_to_guess != your_number:
             print(f"WRONG!!{hint(number_to_guess, your_number)}")
             lifes -= 1
             if lifes == 0:
                 print("GAME OVER")
-                play_again = (input(play_again))
-                if play_again == "n":
-                    lifes = 0
-                else:
-                    input(choose_difficulty)
-                    lifes, number_to_guess = difficulty(mode)[0], difficulty(mode)[1]
-                    print(lifes, number_to_guess)
+                play_again = (input("Do you want to play again? 'y/n' "))
+                results = continue_game(play_again)
+                lifes, number_to_guess = results[0], results[1]
         else:
             print("Congrats!! You guessed the number")
-            play_again = (input(play_again))
-            if play_again == "n":
-                lifes = 0
-            else:
-                input(choose_difficulty)
-                lifes, number_to_guess = difficulty(mode)[0], difficulty(mode)[1]
+            play_again = (input("Do you want to play again? 'y/n' "))
+            results = continue_game(play_again)
+            lifes, number_to_guess = results[0], results[1]
     return "Thanks for playing!!"
 
 welcome = "Welcome to the game. "
