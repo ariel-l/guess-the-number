@@ -32,7 +32,6 @@ def continue_game(prompt):
 def game(mode):
     results = difficulty(mode)
     lifes, number_to_guess = results[0], results[1]
-    print(number_to_guess)
     while lifes != 0:
         your_number = int(input("-- Guess the number -- \nPlease, enter your number: "))
         if number_to_guess != your_number:
